@@ -28,7 +28,7 @@ jobs:
       - name: Build
         run: msbuild OpenStartScreen.sln /p:Configuration=Release
 
-            - name: Upload build
+      - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           name: OpenStartScreen
