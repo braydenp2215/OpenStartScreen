@@ -14,20 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Restore
-        run: dotnet restore OpenStartScreen.sln
+      - name: Build with MSBuild
+        uses: microsoft/setup-msbuild@v2
 
       - name: Build
-        run: dotnet build OpenStartScreen.sln --configuration Release --no-restore
+        run: msbuild OpenStartScreen.sln /p:Configuration=Release
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: OpenStartScreen
           path: |
-            **/bin/Release/**/*.exe
+            **\bin\Release\*.exe
