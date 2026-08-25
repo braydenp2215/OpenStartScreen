@@ -28,8 +28,9 @@ jobs:
       - name: Build
         run: msbuild OpenStartScreen.sln /p:Configuration=Release
 
-      - name: Upload EXE
+            - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           name: OpenStartScreen
-          path: '**\bin\Release\*.exe'
+          path: OpenStartScreen/bin/Release/net8.0-windows/
+          if-no-files-found: error
