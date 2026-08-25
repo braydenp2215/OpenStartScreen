@@ -1,0 +1,33 @@
+name: Build OpenStartScreen
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore OpenStartScreen.sln
+
+      - name: Build
+        run: dotnet build OpenStartScreen.sln --configuration Release --no-restore
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenStartScreen
+          path: |
+            **/bin/Release/**/*.exe
